@@ -1,0 +1,10 @@
+{
+  "name": "mins-dev-skill",
+  "version": "1.0.0",
+  "description": "Lightweight AI-assisted development workflow skill for feature delivery",
+  "bin": {
+    "mins-dev-skill": "./install.js"
+  },
+  "keywords": ["ai", "skill", "copilot", "codex", "development", "workflow"],
+  "license": "Apache-2.0"
+}
