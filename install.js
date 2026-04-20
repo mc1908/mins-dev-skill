@@ -13,10 +13,13 @@ const EXCLUDE = new Set([
   'package.json',
   'install.js',
   'README.md',
+  'PUBLISHING.md',
   'node_modules',
   '.git',
   '.gitignore',
   '.npmignore',
+  '.skillsignore',
+  'external-references',
 ]);
 
 function printHelp() {

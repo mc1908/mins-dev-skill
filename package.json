@@ -5,6 +5,12 @@
   "bin": {
     "mins-dev-skill": "./install.js"
   },
+  "files": [
+    "SKILL.md",
+    "LICENSE.txt",
+    "references/",
+    "assets/"
+  ],
   "keywords": ["ai", "skill", "copilot", "codex", "development", "workflow"],
   "license": "Apache-2.0"
 }

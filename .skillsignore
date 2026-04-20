@@ -1,0 +1,11 @@
+# Files to exclude when installing this skill via the Skills CLI.
+# These are installer infrastructure, not part of the skill itself.
+package.json
+install.js
+README.md
+PUBLISHING.md
+.gitignore
+.npmignore
+.skillsignore
+node_modules/
+external-references/
