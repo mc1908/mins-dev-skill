@@ -17,4 +17,5 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Internal working docs
 external-references/
