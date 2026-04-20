@@ -25,11 +25,11 @@ Every story that adds or modifies logic.
 - Test core logic in isolation, independent of external services
 - Cover both happy paths and meaningful edge cases
 - Test all languages in the project (not just the primary one)
-- Keep tests fast ? if a test needs network or database, mock it
+- Keep tests fast -- if a test needs network or database, mock it
 
 ### Common Gaps to Watch For
 
-- Only testing Python when the project also has JavaScript
+- Only testing the primary language when the project is multi-language
 - Only testing happy paths
 - Not running the full test suite after changes (regression)
 
@@ -81,28 +81,14 @@ Stories with user-facing behavior or external service integration.
 - Execute the manual verification steps documented for the story
 - Use real credentials and real service endpoints (not mocks)
 - Verify both the success path and at least one error path
-- Document exactly what was checked and the observed result
+- Document exactly what was checked and the observed result with concrete numbers, quoted output, or state -- not just Pass/Fail
 
-### Manual Verification Document Structure
+### Manual Verification Document
 
-```markdown
-# Manual Verification ? Story NN
-
-## Environment
-- Target: [environment name and URL]
-- Date: [verification date]
-
-## Checks
-| # | Check | Expected | Observed | Status |
-|---|-------|----------|----------|--------|
-| 1 | [description] | [expected behavior] | [what happened] | Pass/Fail |
-
-## Issues Found
-- [issue description and resolution]
-
-## Evidence
-- [screenshots, logs, or links to artifacts]
-```
+Use the template at `assets/templates/story-manual-verification.md` and write the output to
+`mins-dev-skill-docs/<scope>/stories/story-NN/manual-verification.md`. The template enforces
+concrete observed results, an Issues Found loop (symptom / cause / fix / re-verified), and a
+Known Limitations statement.
 
 ## Layer 5: Cross-Repo Validation
 
@@ -110,39 +96,32 @@ Stories with user-facing behavior or external service integration.
 
 Stories that require changes in an external repository.
 
-### Patterns
+### Handoff Package
 
-Create a handoff package that includes:
+Use the directory template at `assets/templates/external-handoff-package/`. Copy the entire directory into the originating story's tracking folder (`mins-dev-skill-docs/<scope>/stories/story-NN/handoff-<short-name>/`) and populate each file. The package is intentionally self-contained: the receiving agent should not need access to this repo's history to do the work.
 
-1. **Context document** ? What the change achieves and why
-2. **Exact file targets** ? Which files and functions need modification
-3. **Patch or diff** ? If possible, a ready-to-apply patch
-4. **Unit test expectations** ? What tests the external repo should run
-5. **Validation plan** ? How to verify the change works in integration
-6. **Integration context** ? What the calling repo expects from the external repo
+The package contains:
 
-### Handoff Document Template
+| File | Purpose |
+|------|---------|
+| `README.md` | Package contents and recommended usage workflow |
+| `agent-prompt.md` | Copy-paste ready prompt for the receiving agent |
+| `integration-context.md` | Background, behavior contract, acceptance criteria, interface specs |
+| `validation-and-test-plan.md` | Validation expectations, test cases, command checklist, definition of done |
+| `fixtures/` | Sample payloads, test data, mock responses, configuration examples |
 
-```markdown
-# External Repo Handoff ? [Description]
+Track the handoff status in the originating story's `manual-verification.md`.
 
-## Goal
-[One sentence: what this change achieves]
+### Patch Generation Discipline
 
-## Files to Modify
-- [file path]: [what to change]
+When the handoff includes a code patch (diff for the target repo to apply):
 
-## Patch
-[inline patch or reference to patch file]
-
-## Testing
-- [ ] [unit test expectation]
-- [ ] [integration test expectation]
-
-## Validation
-- [ ] [how to verify in isolation]
-- [ ] [how to verify in integration with the calling repo]
-```
+- **Snapshot the original state** before modification so the diff is reproducible.
+- **Generate diffs with paths relative to the target repo root**, not the source repo root.
+- **Verify the patch applies cleanly** in the target repo before handoff (`git apply --check`, `patch --dry-run`, or the project's equivalent).
+- **Watch for transient or generated files** that can pollute the patch: build artifacts, caches, lockfile churn unrelated to the change, editor metadata, OS metadata. Strip them before handoff.
+- **Semantic correctness over patch cleanliness.** If the target repo has diverged, a clean-applying patch matters less than describing the change clearly enough that the receiver can re-implement it. Prefer a precise `integration-context.md` over a brittle patch.
+- **Tool-agnostic.** The patch can be a `git diff`, a directory comparison, a unified-diff text file, or a set of file-level diffs -- whichever fits the project. Document which format was used.
 
 ## When Validation Finds Problems
 

@@ -77,9 +77,12 @@ mins-dev-skill-docs/
     story-plan.md                     # From template: assets/templates/story-plan.md
     stories/
       story-01/
+        story.md                      # From template: assets/templates/story-doc.md
+        review-and-gaps.md            # From template: assets/templates/story-review-and-gaps.md
+        clarifying-questions.md       # From template: assets/templates/story-clarifying-questions.md
         technical-design.md
         impl-checklist.md             # From template: assets/templates/story-impl-checklist.md
-        manual-verification.md
+        manual-verification.md        # From template: assets/templates/story-manual-verification.md
       story-02/
         ...
     knowledge/
@@ -139,19 +142,27 @@ Goal: Execute a single story from ready to complete with full validation.
 ### The Loop
 
 ```
-Review -> Design -> Checklist -> Implement -> Test -> Deploy -> Validate -> Learn -> Update Status
+Review -> Clarify -> Design -> Checklist -> Implement -> Test -> Deploy -> Validate -> Learn -> Update Status
 ```
 
 Key outputs per story (all under `mins-dev-skill-docs/<scope>/`):
+- `stories/story-NN/story.md` (scope guard, dependencies, Implementation References, acceptance criteria)
+- `stories/story-NN/review-and-gaps.md`
+- `stories/story-NN/clarifying-questions.md`
 - `stories/story-NN/technical-design.md`
 - `stories/story-NN/impl-checklist.md`
 - `stories/story-NN/manual-verification.md`
+
+For trivial stories, `review-and-gaps.md` and `clarifying-questions.md` may be collapsed
+into a brief section at the top of `technical-design.md`. Optional per-story artifacts
+(`status-notes.md`, `risk-log.md`, `test-evidence.md`) exist for complex stories -- see
+`references/impl-sop.md`.
 
 ### Standing Rules
 
 - No source file longer than 1000 lines (hard limit). Aim for ~600 lines.
 - Run the full test suite after every story, not just new tests.
-- Test all languages in the project (Python, JS, etc.), not just the primary.
+- Test all languages and runtimes used in the project, not just the primary one.
 - If a story reveals a process improvement, update the SOP docs immediately.
 
 ## Phase 4: Validation
@@ -207,9 +218,14 @@ Templates in `assets/templates/` are copied into the user's artifact directory:
 | Template | Copied to | Purpose |
 |----------|-----------|---------|
 | `feature-scope.md` | `<scope>/scope.md` | Define intent, boundaries, decisions |
-| `story-plan.md` | `<scope>/story-plan.md` | Track stories, dependencies, coverage |
-| `story-impl-checklist.md` | `<scope>/stories/story-NN/impl-checklist.md` | Per-story implementation tracking |
-| `knowledge-doc.md` | `<scope>/knowledge/<topic>.md` | Individual knowledge entries |
+| `story-plan.md` | `<scope>/story-plan.md` | Track stories, dependencies, coverage, planning principles |
+| `story-doc.md` | `<scope>/stories/story-NN/story.md` | Per-story scope guard, dependencies, Implementation References |
+| `story-review-and-gaps.md` | `<scope>/stories/story-NN/review-and-gaps.md` | SOP Step 1a output |
+| `story-clarifying-questions.md` | `<scope>/stories/story-NN/clarifying-questions.md` | SOP Step 1b output |
+| `story-impl-checklist.md` | `<scope>/stories/story-NN/impl-checklist.md` | Per-story implementation tracking with Completion Summary |
+| `story-manual-verification.md` | `<scope>/stories/story-NN/manual-verification.md` | Live validation evidence |
+| `knowledge-doc.md` | `<scope>/knowledge/<topic>.md` | Individual knowledge entries (organized by concern domain) |
+| `external-handoff-package/` | `<scope>/stories/story-NN/handoff-<name>/` | Self-contained package for cross-repo work |
 
 ## Resuming Work
 

@@ -68,12 +68,20 @@ Some concerns span multiple stories:
 
 ## Story Plan Document Structure
 
-The story plan document (`mins-dev-skill-docs/<scope>/story-plan.md`) should include:
+The story plan document (`mins-dev-skill-docs/<scope>/story-plan.md`, from `assets/templates/story-plan.md`) should include:
 
-1. **Story list** ? numbered, with one-line summary each
-2. **Dependency order** ? which stories must complete before others
-3. **Coverage matrix** ? mapping from scope requirements to stories
-4. **Status tracking** ? current state of each story (not started / in progress / complete)
+1. **Planning Principles** -- project-specific principles discovered during scope clarification, written before listing stories so the decomposition has a stated rationale
+2. **Story list** -- numbered, with one-line summary AND a Primary Outcome (the milestone the story delivers)
+3. **Story Granularity Rationale** -- per story, why it is not smaller and not larger
+4. **Validation Strategy By Story** -- one line per story stating what validation proves at that milestone
+5. **Dependency order and graph** -- which stories must complete before others, including an explicit graph (text or mermaid)
+6. **Coverage matrix** -- mapping from scope requirements to stories
+7. **Deliverables to create** -- the per-story documents and tracking directories that this plan implies
+8. **Status tracking** -- current state of each story (not started / in progress / complete)
+
+## Per-Story Document
+
+Every story produced during decomposition gets its own story document at `mins-dev-skill-docs/<scope>/stories/story-NN/story.md`, created from `assets/templates/story-doc.md`. The story doc is the single source of truth for that story's scope, dependencies, Implementation References (the forward-link to knowledge), deliverables, acceptance criteria, and validation. Each story doc must include a **Why This Story Size Is Right** paragraph that defends the sizing decision against the heuristics above (why not smaller, why not larger).
 
 ## Ordering Principles
 

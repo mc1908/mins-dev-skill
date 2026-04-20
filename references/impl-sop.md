@@ -13,20 +13,32 @@ All tracking artifacts (technical designs, checklists, verification docs, knowle
 For each story, execute these steps in order:
 
 ```
-Review ? Design ? Checklist ? Implement ? Test ? Deploy ? Validate ? Learn ? Update Status
+Review ? Clarify ? Design ? Checklist ? Implement ? Test ? Deploy ? Validate ? Learn ? Update Status
 ```
 
-### Step 1: Review
+### Step 1a: Review
 
 Before touching code:
-- Read the story description and acceptance criteria
+- Read the story document (`stories/story-NN/story.md`, structure defined by `assets/templates/story-doc.md`) including its **In Scope**, **Out of Scope**, and **Implementation References** sections
+- **Load every doc listed in Implementation References** (knowledge docs, prior-story artifacts, external references) before continuing
 - Read the scope doc for surrounding context
 - Explore relevant existing code and documentation in the repo
-- Identify any gaps, inconsistencies, or ambiguities
-- Ask clarifying questions if anything is unclear
+- Identify gaps, inconsistencies, ambiguities, and assumptions
 - Check the knowledge docs from previous stories for relevant lessons
 
-**Output:** Confirmed understanding. Any clarification questions resolved.
+**Output:** `mins-dev-skill-docs/<scope>/stories/story-NN/review-and-gaps.md` (from `assets/templates/story-review-and-gaps.md`).
+
+### Step 1b: Clarification
+
+Based on the review:
+- Capture every blocking and non-blocking question with its impact
+- Resolve all blocking questions before proceeding to design (ask the user, look up references, or escalate)
+- For non-blocking questions, record the working assumption and proceed
+- If there are no questions, still produce the file with an explicit "no clarification questions" statement -- this confirms the review was thorough
+
+**Output:** `mins-dev-skill-docs/<scope>/stories/story-NN/clarifying-questions.md` (from `assets/templates/story-clarifying-questions.md`).
+
+**Lightweight option:** For trivial stories with no integration risk, Steps 1a and 1b may be collapsed into a brief Review and Clarifications section at the top of `technical-design.md` instead of separate files.
 
 ### Step 2: Technical Design
 
@@ -108,6 +120,34 @@ After the story is complete and validated:
 
 **Output:** Updated `mins-dev-skill-docs/<scope>/story-plan.md`.
 
+## Minimum Content Expectations Per Artifact
+
+These are the minimum sections each artifact must contain. Agents may add sections as the story demands; these are floors, not ceilings. All expectations are intentionally language- and framework-agnostic.
+
+### `story.md`
+
+Sections defined by `assets/templates/story-doc.md`: Status, Objective, Why This Story Size Is Right, In Scope, Out of Scope, Dependencies, Implementation References, Deliverables, Acceptance Criteria, Validation, Scope Coverage.
+
+### `review-and-gaps.md`
+
+Story id and title; Reviewed Inputs (including every Implementation Reference from the story doc); Relevant Code and Docs Reviewed (concrete paths/URLs); Implementation Summary (what-to-how translation); Architecture and Extension Points; Gaps and Risks; Assumptions.
+
+### `clarifying-questions.md`
+
+Resolution status; Questions list with blocking / non-blocking classification, working assumption (if proceeding), and resolution. If there are no questions, the file must explicitly state "No clarification questions at this stage" -- absence is not the same as confirmed absence.
+
+### `technical-design.md`
+
+Objective; Scope and Out-of-Scope (mirrors the story doc); Architecture and data flow; Component design for each major system area (use whatever component vocabulary fits the project -- "service", "library", "module", "frontend", "backend", "job", etc.); Contracts and interfaces with other components; Configuration and secret-handling approach; Validation and test strategy; File and module change plan with a size-limit check (no source file over 1000 lines, target ~600).
+
+### `impl-checklist.md`
+
+Prerequisites (story dependencies, Implementation References reviewed, review/clarifications produced, design reviewed); Ordered actionable checkboxes grouped by implementation phase; Inline validation items (not deferred to the end); Completion Summary with validation commands run, validation outcomes, scope changes discovered, and knowledge findings to capture.
+
+### `manual-verification.md`
+
+Prerequisites; Verification Path (local / deployed / both); Executed Steps with reproducible actions; Actual Results with concrete numbers, quoted output, or observed state (not just Pass/Fail); Issues Found loop (Symptom / Cause / Fix Applied / Re-verified); Evidence; Known Limitations.
+
 ## Cross-Story Discipline
 
 ### Module Size Enforcement
@@ -119,11 +159,27 @@ After every story that adds or modifies code, verify:
 
 ### Regression Testing
 
-After every story, run the full test suite ? not just the tests for the current story.
+After every story, run the full test suite -- not just the tests for the current story.
 
 ### Documentation Freshness
 
 After every story, review whether any earlier documentation (scope doc, technical designs, knowledge docs) needs updating based on what was learned.
+
+### Deployment Artifact Cleanliness
+
+Do not ship story-internal labels, placeholder text, debug wording, or tracking identifiers in user-facing surfaces or deployed artifacts. When a story adds local tooling, generated files, or test assets under a deployable directory, update the relevant package-exclude file (e.g., `.gitignore`, `.dockerignore`, `.helmignore`, `.npmignore`, or the project's equivalent packaging-exclusion mechanism) so release packaging excludes those assets. Applies to any deployment mechanism: containers, serverless functions, VMs, static hosting, package publishing, etc.
+
+### Runtime Config Rollout
+
+When a story changes runtime configuration -- whether through environment variables, config files, secret stores, feature flags, or equivalent mechanisms -- verify whether the change takes effect in running instances automatically or requires a manual restart, redeploy, or cache invalidation. If manual action is required, document it in the story tracking and in reusable knowledge docs. If the lack of automatic rollout is a release concern, add the follow-up to the current story scope or to a hardening story.
+
+### Split-Credential Integrations
+
+When an integration uses separate credentials for different operations (for example, one token for writes and another for reads, separate auth for different external APIs, or distinct service accounts for different environments), document and validate both paths explicitly. Do not assume one credential works for all operations -- verify each.
+
+### Secret Handling in Artifacts
+
+No real tokens, passwords, API keys, or connection strings in committed docs, exported configs, story tracking artifacts, or knowledge docs. Use placeholders (`<token_placeholder>`) or safe-loading patterns (`$(command-to-load-secret)`, environment-variable references, secret-manager lookups). This rule applies equally to story docs, knowledge docs, manual verification docs, and external handoff packages.
 
 ## When Things Go Wrong
 
@@ -150,3 +206,23 @@ After every story, review whether any earlier documentation (scope doc, technica
 2. Split the new work into a follow-up story
 3. Complete the original story's scope first
 4. Add the follow-up story to the story plan
+
+## Optional Per-Story Artifacts
+
+The required artifacts (`story.md`, `review-and-gaps.md`, `clarifying-questions.md`,
+`technical-design.md`, `impl-checklist.md`, `manual-verification.md`) cover most stories.
+For complex or long-running stories, the following optional artifacts can be added inside
+the story directory. Use them when the story warrants it -- most stories need only the
+required artifacts.
+
+- **`status-notes.md`** -- running log of scope changes, blockers, decisions made during
+  implementation. Useful when a story spans multiple sessions or involves external
+  coordination. Keeps the implementation checklist focused on actions rather than narrative.
+- **`risk-log.md`** -- tracked risks with likelihood, impact, and mitigation status. Useful
+  for stories with high integration uncertainty or external dependencies.
+- **`test-evidence.md`** -- detailed test output, command logs, or screenshots when the
+  Completion Summary section in `impl-checklist.md` would otherwise become too long. Keeps
+  the checklist scannable while preserving the evidence trail.
+
+These files are opt-in. Adding them to a story that does not need them adds noise without
+value.
