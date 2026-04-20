@@ -6,16 +6,30 @@ Lightweight AI-assisted development workflow skill. Guides feature delivery from
 
 ## Install
 
-**Project-level** (one repository, run from the project root):
+### Using the Skills CLI (recommended)
 
 ```bash
-npx github:your-org/mins-dev-skill
+npx skills add mc1908/mins-dev-skill
+```
+
+Installs to `.agents/skills/mins-dev-skill/` in the current project. To install globally (available across all projects):
+
+```bash
+npx skills add mc1908/mins-dev-skill -g
+```
+
+### Using npx directly (no extra tooling required)
+
+**Project-level** (run from the project root):
+
+```bash
+npx github:mc1908/mins-dev-skill
 ```
 
 **Personal** (available across all projects):
 
 ```bash
-npx github:your-org/mins-dev-skill -- --location personal
+npx github:mc1908/mins-dev-skill -- --location personal
 ```
 
 Installed locations:
