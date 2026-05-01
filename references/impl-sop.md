@@ -8,6 +8,13 @@ This reference is loaded when implementing a story. It defines the standard oper
 
 All tracking artifacts (technical designs, checklists, verification docs, knowledge docs, handoff packages) MUST be created inside `mins-dev-skill-docs/<scope>/`. Never create these artifacts elsewhere in the project. Actual source code, tests, and deployment files go wherever the project's conventions dictate.
 
+## Progress Tracking Rule
+
+- Treat `mins-dev-skill-docs/<scope>/story-plan.md` as the canonical overall progress tracker for the scope.
+- When a story changes state, update the `Status` column in `story-plan.md` immediately.
+- Keep per-story execution progress in `stories/story-NN/impl-checklist.md` and per-story completion evidence in `stories/story-NN/manual-verification.md`.
+- Do not repurpose `scope.md` or knowledge docs as progress trackers.
+
 ## The Implementation Loop
 
 For each story, execute these steps in order:
@@ -115,6 +122,7 @@ After the story is complete and validated:
 ### Step 9: Update Status
 
 - Mark the story as complete in `story-plan.md`
+- Update the `story-plan.md` Overall Status summary so completed / in-progress / not-started counts and next recommended story stay current
 - Review whether docs need updates based on what was learned
 - Check if the next story's prerequisites are met
 

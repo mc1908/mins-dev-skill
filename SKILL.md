@@ -95,6 +95,17 @@ mins-dev-skill-docs/
 
 To initialize a new scope, copy the templates from `assets/templates/` into the appropriate locations.
 
+### Progress Tracking Rule
+
+Use the artifacts consistently so progress has one canonical home:
+
+- **Overall scope progress** lives in `mins-dev-skill-docs/<scope>/story-plan.md` only. This is the canonical roll-up for what is complete, in progress, blocked, or not started across the scope.
+- `story-plan.md` SHOULD include an **Overall Status** section near the top with a short summary such as completed / in-progress / not-started counts and the next recommended story.
+- Update the `Status` column in `story-plan.md` whenever a story changes state.
+- **Per-story progress** lives in `stories/story-NN/story.md` (story-level status and acceptance criteria), `stories/story-NN/impl-checklist.md` (step-by-step execution progress), and `stories/story-NN/manual-verification.md` (completion evidence).
+- `scope.md` is for scope, decisions, and open questions only. Do not use it as a progress tracker.
+- `knowledge/` and `repo-knowledge/` are for reusable lessons only. Do not use knowledge docs as progress trackers.
+
 ## Phase 1: Scope Clarification
 
 Goal: Turn rough notes and incomplete context into a clear, bounded scope.
@@ -232,6 +243,6 @@ Templates in `assets/templates/` are copied into the user's artifact directory:
 When returning to an in-progress feature or when context has been lost:
 
 1. Read `mins-dev-skill-docs/<scope>/scope.md` to restore the intent and boundaries
-2. Read `mins-dev-skill-docs/<scope>/story-plan.md` to see current progress and next story
+2. Read `mins-dev-skill-docs/<scope>/story-plan.md` to see current overall progress, current story states, and the next story
 3. If a story is in progress, read its `technical-design.md` and `impl-checklist.md` to pick up where work stopped
 4. Check `knowledge/` for lessons from completed stories that affect the current work

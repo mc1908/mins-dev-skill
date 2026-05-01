@@ -4,6 +4,31 @@
 
 [One sentence describing what this story plan delivers.]
 
+## Overall Status
+
+<!--
+This is the canonical overall progress tracker for the scope.
+Keep it short and current. Update it whenever any story changes status.
+Suggested contents:
+  - Completed / In Progress / Blocked / Not Started counts
+  - Current active story
+  - Next recommended story
+Example:
+  - Completed: 1
+  - In Progress: 1
+  - Blocked: 0
+  - Not Started: 8
+  - Active Story: Story 02
+  - Next Recommended Story: Story 03
+-->
+
+- Completed: [count]
+- In Progress: [count]
+- Blocked: [count]
+- Not Started: [count]
+- Active Story: [story number or "None"]
+- Next Recommended Story: [story number or rationale]
+
 ## Planning Principles
 
 <!--
@@ -34,6 +59,16 @@ not just what it does. Example:
 |---|-------|---------|-----------------|--------------|--------|
 | 1 | [story name] | [one-line description] | [milestone delivered] | -- | Not Started |
 | 2 | [story name] | [one-line description] | [milestone delivered] | Story 1 | Not Started |
+
+<!--
+The Status column above is the canonical story-by-story progress roll-up for the scope.
+Update it whenever a story changes state. Recommended values:
+  - Not Started
+  - In Progress
+  - Blocked
+  - Ready for Validation
+  - Complete
+-->
 
 ## Story Granularity Rationale
 
