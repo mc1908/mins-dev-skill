@@ -50,9 +50,9 @@ These are lessons that apply across features in this repository:
 ## How to Decide Which Level
 
 Ask: "Would this knowledge help someone working on a different feature in this repo?"
-- **Yes** ? repo-level
-- **No, it's specific to this feature's domain** ? feature-level
-- **Both** ? put it in repo-level and reference it from feature-level
+- **Yes** -- repo-level
+- **No, it's specific to this feature's domain** -- feature-level
+- **Both** -- put it in repo-level and reference it from feature-level
 
 ## Knowledge Document Structure
 
@@ -147,7 +147,7 @@ Use whatever fits the project. These work across most stacks:
 
 ## Anti-Patterns
 
-- **Capturing everything** ? only capture what is non-obvious or repeatedly useful
-- **Capturing too late** ? capture while the context is fresh, not at the end of the project
-- **Duplicating between levels** ? reference, don't copy
-- **Writing novels** ? keep knowledge docs concise and scannable
+- **Capturing everything** -- only capture what is non-obvious or repeatedly useful
+- **Capturing too late** -- capture while the context is fresh, not at the end of the project
+- **Duplicating between levels** -- reference, don't copy
+- **Writing novels** -- keep knowledge docs concise and scannable

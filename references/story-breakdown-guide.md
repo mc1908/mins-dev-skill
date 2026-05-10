@@ -85,7 +85,7 @@ Every story produced during decomposition gets its own story document at `mins-d
 
 ## Ordering Principles
 
-1. Foundation first ? establish the skeleton and deployment pipeline
-2. Highest-risk integrations early ? validate external dependencies before building on assumptions
-3. User-visible behavior before internal plumbing ? get feedback loops running
-4. Refactor as you go ? absorb structural improvements into the story that discovers the need
+1. Foundation first -- establish the skeleton and deployment pipeline
+2. Highest-risk integrations early -- validate external dependencies before building on assumptions
+3. User-visible behavior before internal plumbing -- get feedback loops running
+4. Refactor as you go -- absorb structural improvements into the story that discovers the need

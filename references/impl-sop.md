@@ -20,7 +20,7 @@ All tracking artifacts (technical designs, checklists, verification docs, knowle
 For each story, execute these steps in order:
 
 ```
-Review ? Clarify ? Design ? Checklist ? Implement ? Test ? Deploy ? Validate ? Learn ? Update Status
+Review -> Clarify -> Design -> Checklist -> Implement -> Test -> Deploy -> Validate -> Learn -> Update Status
 ```
 
 ### Step 1a: Review
@@ -31,6 +31,9 @@ Before touching code:
 - Read the scope doc for surrounding context
 - Explore relevant existing code and documentation in the repo
 - Identify gaps, inconsistencies, ambiguities, and assumptions
+- If multiple interpretations exist, document them and identify the recommended one
+- State assumptions explicitly; block if an assumption would materially change the implementation
+- Note the simplest viable approach and any tradeoff it makes
 - Check the knowledge docs from previous stories for relevant lessons
 
 **Output:** `mins-dev-skill-docs/<scope>/stories/story-NN/review-and-gaps.md` (from `assets/templates/story-review-and-gaps.md`).
@@ -55,6 +58,8 @@ Document a technical design for the story:
 - What integration points exist
 - What edge cases need handling
 - What the testing approach will be
+- The simplest approach that satisfies the acceptance criteria
+- Why broader abstractions, extra configuration, or speculative flexibility are not needed
 
 **Output:** `mins-dev-skill-docs/<scope>/stories/story-NN/technical-design.md`
 
@@ -73,6 +78,10 @@ Based on the technical design, create a step-by-step checklist:
 Execute the checklist step by step:
 - Update the checklist as each step completes
 - If a step reveals a new requirement, add it to the checklist before continuing
+- Touch only what the story requires
+- Match existing project style, even if a different style would be preferred
+- Do not clean up unrelated code, comments, or formatting
+- Remove imports, variables, functions, and files made unused by this change only
 - Follow module organization standards:
   - No source file longer than 1000 lines (hard limit)
   - Aim for ~600 lines per file
@@ -86,6 +95,7 @@ Write and run tests for the implemented behavior:
 - Unit tests for core logic (all languages in the project)
 - Integration tests if the story touches integration boundaries
 - Regression tests to confirm existing behavior is preserved
+- Tests should prove the story's acceptance criteria. For bug fixes, write or identify a failing check that reproduces the issue before fixing when practical.
 
 Run the full test suite, not just new tests.
 
@@ -138,7 +148,7 @@ Sections defined by `assets/templates/story-doc.md`: Status, Objective, Why This
 
 ### `review-and-gaps.md`
 
-Story id and title; Reviewed Inputs (including every Implementation Reference from the story doc); Relevant Code and Docs Reviewed (concrete paths/URLs); Implementation Summary (what-to-how translation); Architecture and Extension Points; Gaps and Risks; Assumptions.
+Story id and title; Reviewed Inputs (including every Implementation Reference from the story doc); Relevant Code and Docs Reviewed (concrete paths/URLs); Implementation Summary (what-to-how translation); Interpretation and Tradeoffs; Architecture and Extension Points; Gaps and Risks; Assumptions.
 
 ### `clarifying-questions.md`
 
@@ -146,11 +156,11 @@ Resolution status; Questions list with blocking / non-blocking classification, w
 
 ### `technical-design.md`
 
-Objective; Scope and Out-of-Scope (mirrors the story doc); Architecture and data flow; Component design for each major system area (use whatever component vocabulary fits the project -- "service", "library", "module", "frontend", "backend", "job", etc.); Contracts and interfaces with other components; Configuration and secret-handling approach; Validation and test strategy; File and module change plan with a size-limit check (no source file over 1000 lines, target ~600).
+Objective; Scope and Out-of-Scope (mirrors the story doc); Simplest viable approach; Architecture and data flow; Component design for each major system area (use whatever component vocabulary fits the project -- "service", "library", "module", "frontend", "backend", "job", etc.); Contracts and interfaces with other components; Configuration and secret-handling approach; Validation and test strategy; File and module change plan with a size-limit check (no source file over 1000 lines, target ~600).
 
 ### `impl-checklist.md`
 
-Prerequisites (story dependencies, Implementation References reviewed, review/clarifications produced, design reviewed); Ordered actionable checkboxes grouped by implementation phase; Inline validation items (not deferred to the end); Completion Summary with validation commands run, validation outcomes, scope changes discovered, and knowledge findings to capture.
+Prerequisites (story dependencies, Implementation References reviewed, review/clarifications produced, design reviewed, success criteria explicit, simplest viable approach identified, change boundary identified); Ordered actionable checkboxes grouped by implementation phase; Inline validation items (not deferred to the end); Completion Summary with validation commands run, validation outcomes, scope changes discovered, and knowledge findings to capture.
 
 ### `manual-verification.md`
 

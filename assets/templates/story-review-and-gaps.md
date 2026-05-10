@@ -43,6 +43,18 @@ without committing to a full design yet. 1-3 short paragraphs.
 
 [Approach summary.]
 
+## Interpretation and Tradeoffs
+
+<!--
+Surface reasoning before design. If multiple interpretations exist, state them and name the
+selected interpretation. Keep this focused on decisions that affect this story's implementation.
+-->
+
+- **Selected interpretation:** [...]
+- **Alternatives considered:** [...]
+- **Simplest viable approach:** [...]
+- **Tradeoffs accepted:** [...]
+
 ## Architecture and Extension Points
 
 <!--

@@ -9,7 +9,7 @@ This reference is loaded when setting up or running validation for a story. It p
 Effective validation uses multiple layers. Each layer catches different classes of problems:
 
 ```
-Unit Tests ? Integration Tests ? Deployment ? Live Validation ? Cross-Repo Validation
+Unit Tests -> Integration Tests -> Deployment -> Live Validation -> Cross-Repo Validation
 ```
 
 Not every story needs all layers. Use the minimum set that gives confidence the story works.
@@ -125,8 +125,8 @@ When the handoff includes a code patch (diff for the target repo to apply):
 
 ## When Validation Finds Problems
 
-1. **Diagnose before fixing** ? read logs, inspect state, understand the root cause
-2. **Fix the root cause** ? not just the symptom
-3. **Re-validate** ? run the same checks that found the problem
-4. **Document the lesson** ? add to knowledge docs so future stories avoid the same issue
-5. **Update the SOP if needed** ? if the problem reveals a process gap
+1. **Diagnose before fixing** -- read logs, inspect state, understand the root cause
+2. **Fix the root cause** -- not just the symptom
+3. **Re-validate** -- run the same checks that found the problem
+4. **Document the lesson** -- add to knowledge docs so future stories avoid the same issue
+5. **Update the SOP if needed** -- if the problem reveals a process gap

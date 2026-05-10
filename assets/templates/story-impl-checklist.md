@@ -7,6 +7,9 @@
 - [ ] `review-and-gaps.md` produced (or collapsed into technical design for trivial stories)
 - [ ] `clarifying-questions.md` produced; all blocking questions resolved
 - [ ] Technical design reviewed
+- [ ] Success criteria are explicit and verifiable
+- [ ] Simplest viable approach identified
+- [ ] Change boundary identified: files expected to change and why
 
 ## Implementation Steps
 
@@ -26,6 +29,9 @@
 - [ ] Knowledge docs updated
 - [ ] Story status updated in story-plan.md
 - [ ] Docs reviewed for freshness
+- [ ] No speculative features, abstractions, or configuration added
+- [ ] No unrelated refactors, formatting churn, or cleanup included
+- [ ] Unused code introduced by this story removed
 
 ## Completion Summary
 

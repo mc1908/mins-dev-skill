@@ -9,6 +9,8 @@ Lightweight, guided development workflow for AI-assisted feature delivery. Not a
 
 **Core loop:** Clarify the problem, structure the work, implement one story, test, deploy, validate live, capture lessons, repeat.
 
+**Coding discipline:** Before coding, state assumptions and unresolved ambiguity. Prefer the simplest implementation that satisfies the story. Make surgical changes only. Define verifiable success criteria and loop until checked.
+
 **Announce at start:** "I'm using the mins-dev-skill to guide this development workflow."
 
 ## Invocation Modes
@@ -47,7 +49,7 @@ All skill artifacts live in a single directory at the project root. This keeps t
 
 **All planning, tracking, and knowledge artifacts produced by this skill MUST be created inside `mins-dev-skill-docs/` only.** Never create skill artifacts (scope docs, story plans, technical designs, checklists, verification docs, knowledge docs, handoff packages) anywhere else in the project. Removing `mins-dev-skill-docs/` must leave the project file system clean with no orphaned skill artifacts.
 
-This rule does not apply to actual source code, tests, configuration, or deployment files ? those belong wherever the project's conventions dictate.
+This rule does not apply to actual source code, tests, configuration, or deployment files -- those belong wherever the project's conventions dictate.
 
 ### Setup
 
@@ -174,6 +176,10 @@ into a brief section at the top of `technical-design.md`. Optional per-story art
 - No source file longer than 1000 lines (hard limit). Aim for ~600 lines.
 - Run the full test suite after every story, not just new tests.
 - Test all languages and runtimes used in the project, not just the primary one.
+- Prefer the smallest implementation that satisfies the current story; do not add speculative flexibility, configuration, or abstractions.
+- Touch only files and lines required by the story. Do not refactor adjacent code unless the story requires it.
+- Remove only unused code/imports introduced by the current change. Mention pre-existing dead code instead of deleting it.
+- Every story must have verifiable success criteria before implementation begins.
 - If a story reveals a process improvement, update the SOP docs immediately.
 
 ## Phase 4: Validation
